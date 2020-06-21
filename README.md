@@ -14,9 +14,9 @@ Client Functions that wrap the Back-end Functions:
 --
 A. The `plot_space()` client function **plots the entirety of the charge_space and all the charges present in it in 3 Dimensional Space as a Scatter plot**. 
 
-B. The `menu()` client function creates the **Charge Space Menu** and can be called to 
+B. The `menu()` client function creates the **"Charge Space Menu"** and can be called to 
 1. **Add charged bodies** into `charge_space`. Positive Charges are Red and Negative are Blue.
-2. **Remove charged bodies** from `charge_space`. Or 7. **Clear entirety** of the `charge_space`.
+2. **Remove charged bodies** from `charge_space`. Or 7. **"Clear entirety"** of the `charge_space`.
 3. **Generate N random charged bodies** in `charge_space`.
 4. **Display information** i.e. Location and Magnitude of any charged body.
 5. **Plot the charge_space** as a 3-Dimensional scatter plot.
@@ -49,3 +49,5 @@ C. Finding physical Force and Electric Field Strength values
 1. `charge_pair_force`: Calculates the three Dimensional components of force on charge parameter `obj` by charge parameter `obj2`.
 2. `charge_net_force`: Superposition Theorem: Calculates the three dimensional components of the net force on charge parameter `obj` by all other Charges.
 3. `net_field_at`: Superposition Theorem: Calculates the three dimensional components of the net Electric Field strength at coordinate parameters `x, y, z` in Charge Space.
+
+----
