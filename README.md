@@ -10,7 +10,7 @@ This is a MATLAB program to simulate Electrostatic phenomenon, particularly Coul
 
 # Functions and Usage:
 
-Client Functions that wrap the Back-end Functions:
+USAGE: Client Functions that wrap the Back-end Functions
 --
 A. The `plot_space()` client function **plots the entirety of the charge_space and all the charges present in it in 3 Dimensional Space as a Scatter plot**. 
 
