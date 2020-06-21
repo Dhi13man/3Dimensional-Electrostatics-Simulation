@@ -16,13 +16,13 @@ A. The `plot_space()` client function **plots the entirety of the charge_space a
 
 B. The `menu()` client function creates the **"Charge Space Menu"** and can be called to 
 1. **Add charged bodies** into `charge_space`. Positive Charges are Red and Negative are Blue.
-2. **Remove charged bodies** from `charge_space`. Or 7. **"Clear entirety"** of the `charge_space`.
+2. **Remove charged bodies** from `charge_space`. Or 7. **Clear entirety** of the `charge_space`.
 3. **Generate N random charged bodies** in `charge_space`.
 4. **Display information** i.e. Location and Magnitude of any charged body.
 5. **Plot the charge_space** as a 3-Dimensional scatter plot.
 6. **Exit** out of **Charge Space Menu**.
 
-C. The `calc()` client function creates the **Calculate Values with Coulomb's Law Menu** and can be called to
+C. The `calc()` client function creates the **"Calculate Values with Coulomb's Law Menu"** and can be called to
 1. **Change permittivity**, i.e `charge_space_permittivity` of `charge_space`.
 2. **Calculate net force on any charge** in `charge_space`.
 3. **Calculate force between any two temporary charges** defined by parameters.
