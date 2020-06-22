@@ -33,6 +33,9 @@ plot_graphs = @custom_grapher; % Function that can be called to plot Graphical r
 
 
 % --------------------------- MAIN STARTS HERE -------------------------------
+fprintf('BSD 3-Clause License\n\n');
+disp('Copyright (c) 2020, Dhiman Seal');
+fprintf('All rights reserved.\n\n\n');
 disp("This is a MATLAB program to simulate Electrostatic phenomenon, particularly Coulomb's Law.");
 disp("We maintain a simulated 'Charge space' assumed to be an infinite homogenous insulating medium.");
 disp("The assumption is that every charged body in it remains stationary.")
