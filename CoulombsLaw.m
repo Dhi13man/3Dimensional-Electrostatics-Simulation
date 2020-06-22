@@ -26,10 +26,10 @@ charge_net_force = @net_force_on;   % Superposition Theorem: Calculates the thre
 net_field_at = @net_field_on;       % Superposition Theorem: Calculates the three dimensionalc components of the net Electric Field strength at coordinate parameters 'x, y, z' in Charge Space
 
 % CLIENT FUNCTIONS
-plot_space = @plot_ch;  % Function that creates the Charge Space Menu
+plot_space = @plot_ch;  % Function that plots the Charge Space as a 3 Dimensional Scatter Plot.
 menu = @help;   % Function that creates the Calculate Values with Coulomb's Law menu
 calc = @calculator; % Function that creates the Calculate Values with Coulomb's Law menu
-plot_graphs = @custom_grapher;
+plot_graphs = @custom_grapher; % Function that can be called to plot Graphical relations between various parameters and Force
 
 
 % --------------------------- MAIN STARTS HERE -------------------------------
@@ -45,7 +45,7 @@ info_text();
 % Function that creates the Charge Space Menu
 function help()
     global charge_space; choice = 0;
-    while choice ~= 6
+    while choice ~= 5
         clc;
 		
 		% Charge Space Menu is displayed until '5' is entered as Choice.
@@ -58,10 +58,10 @@ function help()
         fprintf("\n")
         disp(['The Charge space currently has ', num2str(n_charges), ' charges. Exit menu to interact with Charge space plot.']);
         disp("Enter 1 to place a specific new charge into Charge Space: ");
-        disp("Enter 2 to remove specific charge from Charge Space or 7 to remove all charges: ");
+        disp("Enter 2 to remove specific charge from Charge Space or 6 to remove all charges: ");
         disp("Enter 3 to generate N random charges in Charge Space: ");
         disp("Enter 4 to display properties of a specific charge in Charge Space: ");
-        disp("Enter 5 to exit Menu and show 3 Dimensional plot of current Charge Space: ");
+        disp("Enter 5 to exit Menu and interact with the 3 Dimensional plot of current Charge Space: ");
         choice = input("==> ");
         clc;
         switch choice
@@ -109,15 +109,15 @@ function help()
                     if ch == 1
                         rem_num = input("Enter the charge's number whose information is to be viewed: ");
                         display_charge_properties(find_charge(rem_num));
-                        input('');
                     elseif ch == 2
                         disp("Enter the x, y, z coordinates of the charge:");
                         x = input("X coordinate: ");
                         y = input("Y coordinate: ");
                         z = input("Z coordinate: ");
                         display_charge_properties(find_charge(find_charge_bycoord(x, y, z)));
-                        input('Press ENTER to continue!');
                     end
+                    fprintf('\n\');
+                    input('Press ENTER to continue!');
                 end
 
             case 5
@@ -125,7 +125,7 @@ function help()
                 info_text;
                 break
                 
-            case 7
+            case 6
                 clear_space();
 
             otherwise
@@ -193,7 +193,11 @@ function calculator()
                     if ch == 1
                         rem_num = input("Enter the number of the charge on which you want to find net force: ");
                         [fx, fy, fz] = net_force_on(rem_num);
-                        loco = ['charge ', num2str(rem_num), ' of Charge Space'];
+                        if rem_num > 0 && rem_num <= length(charge_space)
+                            loco = ['charge ', num2str(rem_num), ' of Charge Space'];
+                        else
+                            loco = ' invalid charge ';
+                        end
                     elseif ch == 2
                         disp("Enter the x, y, z coordinates of the charge on which you want to find net force:"); 
                         x = input("X coordinate: ");
@@ -241,11 +245,17 @@ function calculator()
                     ch = 0;
                     while ch ~= 1 && ch ~= 2
                         disp("Choosing Charge on which Force will be measured:");
-                        disp("Enter 1 to select it by number of Charge out of Charge Space: ");
+                        disp("Enter 1 to select it by it's number in Charge Space: ");
                         disp("Enter 2 to select it by  it's coordinate in Charge Space: ");
                         ch = input("===>");
                         if ch == 1
-                            rem_num = input("Enter the number of the charge on which you want to find force: ");
+                            rem_num = 0;
+                            while rem_num < 1 || rem_num > length(charge_space)
+                                rem_num = input("Enter the number of the charge on which you want to find force: ");
+                                if rem_num < 1 || rem_num > length(charge_space)
+                                    fprintf("\nCharge Number not present. Enter a number > 1 and <= total number of charges in charge space.\n");
+                                end
+                            end
                             cA = rem_num;
                         elseif ch == 2
                             disp("Enter the x, y, z coordinates of the charge on which you want to find force:"); 
@@ -253,16 +263,31 @@ function calculator()
                             y = input("Y coordinate: ");
                             z = input("Z coordinate: ");
                             cA = find_charge_bycoord(x, y, z);
+                            while cA < 1 || cA > length(charge_space)
+                                fprintf("\nNo Charge present ther. Enter valid coordinates.\n");
+                                disp("Enter the x, y, z coordinates of the charge on which you want to find force:"); 
+                                x = input("X coordinate: ");
+                                y = input("Y coordinate: ");
+                                z = input("Z coordinate: ");
+                                cA = find_charge_bycoord(x, y, z);
+                            end
                         end
                     end
                     ch = 0;
                     while ch ~= 1 && ch ~= 2
+                        fprintf('\n');
                         disp("Choosing Charge because of which Force will be experienced on first charge:");
-                        disp("Enter 1 to select it by number of Charge out of Charge Space: ");
+                        disp("Enter 1 to select it by it's number in Charge Space: ");
                         disp("Enter 2 to select it by  it's coordinate in Charge Space: ");
                         ch = input("===>");
                         if ch == 1
-                            rem_num = input("Enter the number of the charge because of which Force is experienced: ");
+                            rem_num = 0;
+                            while rem_num < 1 || rem_num > length(charge_space)
+                                rem_num = input("Enter the number of the charge on which you want to find force: ");
+                                if rem_num < 1 || rem_num > length(charge_space)
+                                    fprintf("\nCharge Number not present. Enter a number > 1 and <= total number of charges in charge space.\n");
+                                end
+                            end
                             cB = rem_num;
                         elseif ch == 2
                             disp("Enter the x, y, z coordinates of the charge because of which Force is experienced:"); 
@@ -270,11 +295,24 @@ function calculator()
                             y = input("Y coordinate: ");
                             z = input("Z coordinate: ");
                             cB = find_charge_bycoord(x, y, z);
+                            while cB < 1 || cB > length(charge_space)
+                                fprintf("\nNo Charge present ther. Enter valid coordinates.\n");
+                                disp("Enter the x, y, z coordinates of the charge on which you want to find force:"); 
+                                x = input("X coordinate: ");
+                                y = input("Y coordinate: ");
+                                z = input("Z coordinate: ");
+                                cB = find_charge_bycoord(x, y, z);
+                            end
                         end
                     end
                     [fx, fy, fz] = force_on_two(cA, cB);
 					% OUTPUT STATEMENT
-                    fprintf('\nThe force on first charge by second charge is:\n\t%e N along X-axis\n\t%e N along Y-axis\n\t%e N along Z-axis\n', fx, fy, fz);
+                    if isequal(cA, cB)
+                        fprintf('\nYou pointed to the same charge in both cases. They are in same location.')
+                        fprintf("\nCoulomb's Law Does not hold. Undefined Force.\n");
+                    else
+                        fprintf('\nThe force on first charge by second charge is:\n\t%e N along X-axis\n\t%e N along Y-axis\n\t%e N along Z-axis\n', fx, fy, fz);
+                    end
                     input('Press ENTER to continue!')
                 end
                 
@@ -286,8 +324,13 @@ function calculator()
                 z = input("Z coordinate: ");
                 [fx, fy, fz] = net_field_on(x, y, z);
                 loco = ['(', num2str(x), ', ', num2str(y), ', ', num2str(y), ')'];
+                if (charge_space(1).x_coord == 'N')
+                    n_charges = 0;
+                else
+                    n_charges = length(charge_space);
+                end
 				% OUTPUT STATEMENT
-                fprintf('\nThe Electric Field at %s is:\n\t%e N/C along X-axis\n\t%e N/C along Y-axis\n\t%e N/C along Z-axis\n', loco, fx, fy, fz);
+                fprintf('\nAs %d Charges are present in Charge Space, the Electric Field at %s is:\n\t%e N/C along X-axis\n\t%e N/C along Y-axis\n\t%e N/C along Z-axis\n', n_charges, loco, fx, fy, fz);
                 input('Press ENTER to continue!')
 
             case 6
@@ -393,7 +436,14 @@ function [force_x, force_y, force_z] = net_force_on(obj)
     % Finding the charge
     if isnumeric(obj)
         this_charge = find_charge(obj);
-        if this_charge.x_coord == 'N'
+        if isnumeric(this_charge)
+            if this_charge == 0
+                force_x = 0;
+                force_y = 0;
+                force_z = 0;
+                return
+            end
+        elseif this_charge.x_coord == 'N'
             disp('Charge Space is empty! Returning zero Force');
             force_x = 0;
             force_y = 0;
@@ -509,7 +559,14 @@ end
 function charge = find_charge(charge_number)
     global charge_space;
     if charge_number < 1 || charge_number > length(charge_space)
-       disp('Enter a valid Charge number from Charge Space!');
+       disp('Point to a valid Charge number from Charge Space!');
+       charge = 0;
+       return
+    end
+    if charge_space(1).x_coord == 'N'
+       disp('Charge Space is Empty!');
+       charge = 0;
+       return
     end
     charge = charge_space(charge_number);
 end
@@ -637,11 +694,17 @@ end
 
 function display_charge_properties(charge)
     fprintf('\n');
+    if isnumeric(charge)
+        if charge == 0
+            fprintf("Not Found\n");
+            return
+        end
+    end
     if charge.x_coord == 'N'
         disp("Charge Space is empty! Make sure you place charges! ");
         return
     end
-    disp(['Location of this charge in 3d space is (', ...
+    disp(['Location of this charge in 3D space is (', ...
         num2str(charge.x_coord), ', ', ...
         num2str(charge.y_coord), ', ', ...
         num2str(charge.z_coord), ').']);
@@ -656,7 +719,7 @@ function info_text()
     else
         n_charges = length(charge_space);
     end
-    disp(['The Charge space currently has ', num2str(n_charges), ' charges. The permittivity of the medium is ', num2str(charge_space_permittivity), '.']);
+    disp(['The Charge Space currently has ', num2str(n_charges), ' charges. The permittivity of the medium is ', num2str(charge_space_permittivity), '.']);
     fprintf("Call menu() function to add and remove charges in Charge Space or plot Charge Space in three dimensions.");
     fprintf("\nCall calc() function to calculate Forces, Field after adding charges in Charge Space.");
     fprintf("\nCall plot_graphs() function to plot Force vs Distance or Charge curves with custom Charge pairs.\n"); 
