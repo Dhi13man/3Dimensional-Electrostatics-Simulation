@@ -61,8 +61,12 @@ Examples:
 2. (-10, 0, 70); Magnitude = 1000 C
 3. (5, 12, -7); Magnitude = -20 C
 
+----
 ![](https://raw.githubusercontent.com/Dhi13man/3Dimensional-Electrostatics-Simulation/master/examples/net_field_calc_3_charge_space.png)\
 **Fig:** Net Electric Field strength calculated in Charge Space at (0, 0, 0), and verified to be correct.
 
+----
 ![](https://raw.githubusercontent.com/Dhi13man/3Dimensional-Electrostatics-Simulation/master/examples/net_force_calc_3_charge_space.png)\
 **Fig:** Net Force calculated on Charge 3 (5, 12, -7) by the other two Charges, and verified to be correct.
+
+----
