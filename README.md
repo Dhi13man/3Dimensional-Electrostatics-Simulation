@@ -19,8 +19,7 @@ B. The `menu()` client function creates the **"Charge Space Menu"** and can be c
 2. **Remove charged bodies** from `charge_space`. Or 7. **Clear entirety** of the `charge_space`.
 3. **Generate N random charged bodies** in `charge_space`.
 4. **Display information** i.e. Location and Magnitude of any charged body.
-5. **Plot the charge_space** as a 3-Dimensional scatter plot.
-6. **Exit** out of **Charge Space Menu**.
+5. **Plot the charge_space** as a 3-Dimensional scatter plot and **Exit** out of **Charge Space Menu**.
 
 C. The `calc()` client function creates the **"Calculate Values with Coulomb's Law Menu"** and can be called to
 1. **Change permittivity**, i.e `charge_space_permittivity` of `charge_space`.
@@ -34,18 +33,18 @@ D. The `plot_graphs()` client function can be used to **graphically test the rel
 
 Back-end Functions:
 --
-A. Charge Space Manipulation
+A. **Charge Space Manipulation**
 1. `clear_charge_space()`: Removes all charges from Charge Space.
 2. `charge_place()`: Creates a charge at coordinates pointed by parameters `x, y, z` in charge space of magnitude given by parameter `mag` and plots it if parameter `show` is 1 or [].
 3. `display_charge()`: Display location and magnitude of charge given by parameter `obj` in charge space. `obj` can be numeric or Structure.
 4. `charge_destroy()`: Removes charge given by parameter `obj` from charge space. `obj` can be numeric or Structure.
 5. `n_random_charges()`: Generate number of random charges as given by parameter `number`.
 
-B. Locating Charges
+B. **Locating Charges**
 1. `get_chargenum_bycoord()`: Get the number of the Charge pointed by given coordinate parameters `x, y, z` in charge_space.
 2. `get_charge_bynum()`: Get Charge object pointed by parameter `charge_number` in charge_space. 
 
-C. Finding physical Force and Electric Field Strength values
+C. **Finding physical Force and Electric Field Strength values**
 1. `charge_pair_force()`: Calculates the three Dimensional components of force on charge parameter `obj` by charge parameter `obj2`.
 2. `charge_net_force()`: Superposition Theorem: Calculates the three dimensional components of the net force on charge parameter `obj` by all other Charges.
 3. `net_field_at()`: Superposition Theorem: Calculates the three dimensional components of the net Electric Field strength at coordinate parameters `x, y, z` in Charge Space.
