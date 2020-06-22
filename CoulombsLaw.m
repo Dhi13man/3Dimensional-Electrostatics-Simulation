@@ -21,9 +21,9 @@ n_random_charges = @create_rnd_charges; % Generate number of random charges as g
 get_chargenum_bycoord = @find_charge_bycoord;   % Get number of Charge pointed by given coordinate parameters 'x, y, z' in Charge Space
 get_charge_bynum = @find_charge;       % Get Charge object pointed by parameter 'charge_number' in Charge Space 
 % Finding physical Force and Electric Field Strength values
-charge_pair_force = @force_on_two;  % Force on charge parameter 'obj' by charge parameter 'obj2'
-charge_net_force = @net_force_on;   % Superposition Theorem: Net force on charge parameter 'obj' by all other Charges
-net_field_at = @net_field_on;       % Superposition Theorem: Net Electric Field strenth at coordinate parameters 'x, y, z' in Charge Space
+charge_pair_force = @force_on_two;  % Calculates the three dimensional components of force on charge parameter 'obj' by charge parameter 'obj2'
+charge_net_force = @net_force_on;   % Superposition Theorem: Calculates the three dimensionalc components of the net force on charge parameter 'obj' by all other Charges
+net_field_at = @net_field_on;       % Superposition Theorem: Calculates the three dimensionalc components of the net Electric Field strength at coordinate parameters 'x, y, z' in Charge Space
 
 % CLIENT FUNCTIONS
 plot_space = @plot_ch;  % Function that creates the Charge Space Menu
