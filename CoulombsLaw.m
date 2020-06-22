@@ -47,6 +47,8 @@ function help()
     global charge_space; choice = 0;
     while choice ~= 6
         clc;
+		
+		% Charge Space Menu is displayed until '5' is entered as Choice.
         fprintf("\t\t\t\t\t\t\t\t\t\tCHARGE SPACE MENU");
         if (charge_space(1).x_coord == 'N')
             n_charges = 0;
@@ -133,11 +135,13 @@ function help()
 end
 
 
-% Function that creates the Calculate Values with Coulomb's Law menu
+% Function that creates the Calculate Values with Coulomb's Law Menu
 function calculator()
     global charge_space; global charge_space_permittivity; choice = 0;
     while choice ~= 6
         clc;
+		
+		% Calculate Values with Coulomb's Law Menu is displayed until '6' is entered as Choice.
         fprintf("\t\t\t\t\t\t\t\t\tCALCULATE VALUES WITH COULOMB's LAW");
         if (charge_space(1).x_coord == 'N')
             n_charges = 0;
@@ -198,6 +202,7 @@ function calculator()
                         [fx, fy, fz] = net_force_on(find_charge_bycoord(x, y, z));
                         loco = ['charge at (', num2str(x), ', ', num2str(y), ', ', num2str(y), ')'];
                     end
+					% OUTPUT STATEMENT
                     fprintf('\nThe net force on %s is:\n\t%e N along X-axis\n\t%e N along Y-axis\n\t%e N along Z-axis\n', loco, fx, fy, fz);
                     input('Press ENTER to continue!')
                 end
@@ -220,6 +225,7 @@ function calculator()
                 cB = charge_create(x, y, z, mag, 0);
                 fprintf('\n');                   
                 [fx, fy, fz] = force_on_two(cA, cB);
+				% OUTPUT STATEMENT
                 fprintf('\nThe force on charge at %s by charge at %s is:\n\t%e N along X-axis\n\t%e N along Y-axis\n\t%e N along Z-axis\n', loco1, loco2, fx, fy, fz);
                 input('Press ENTER to continue!')
 
@@ -267,6 +273,7 @@ function calculator()
                         end
                     end
                     [fx, fy, fz] = force_on_two(cA, cB);
+					% OUTPUT STATEMENT
                     fprintf('\nThe force on first charge by second charge is:\n\t%e N along X-axis\n\t%e N along Y-axis\n\t%e N along Z-axis\n', fx, fy, fz);
                     input('Press ENTER to continue!')
                 end
@@ -279,6 +286,7 @@ function calculator()
                 z = input("Z coordinate: ");
                 [fx, fy, fz] = net_field_on(x, y, z);
                 loco = ['(', num2str(x), ', ', num2str(y), ', ', num2str(y), ')'];
+				% OUTPUT STATEMENT
                 fprintf('\nThe Electric Field at %s is:\n\t%e N/C along X-axis\n\t%e N/C along Y-axis\n\t%e N/C along Z-axis\n', loco, fx, fy, fz);
                 input('Press ENTER to continue!')
 
@@ -343,25 +351,33 @@ function plot_ch()
         return
     end
     num = length(charge_space);
+	
+	% Preallocating information arrays with intitial values to save computational resources.
     x = zeros(1, num);
     y = zeros(1, num);
     z = zeros(1, num);
-    sizes = zeros(1, num);
+    magnitudes = zeros(1, num);
+	% Initially all points considered to be Black
     colors = repmat([0, 0, 0], num, 1);
+	
+	% Get Data into the information arrays from charges present in Charge Space.
     for c = 1 : num
         charge = charge_space(c);
         x(c) = charge.x_coord;
         y(c) = charge.y_coord;
         z(c) = charge.z_coord;
-        sizes(c) = charge.mag;
+        magnitudes(c) = charge.mag;
         if charge.col == 'r'
             colors(c, :) = [1, 0, 0];
         elseif charge.col == 'b'
             colors(c, :) = [0, 0, 1];
         end
     end
-    sizes = (log(sizes) + 10^(-1)) * 25;
-    sizes = abs(sizes);
+	% Logarithmic of magnitudes array taken to get relative sizes in scatter plot without incredibly high desparity.
+    sizes = (log(magnitudes) + 10^(-1)) * 25;
+    sizes = abs(sizes); % Don't want negative or complex sizes.
+	
+	% Scatter plot creation
     scatter3(x, y, z, sizes, colors, 'filled')
     title("Charge Space");
     xlabel("X axis Coordinate");
