@@ -59,7 +59,7 @@ function help()
             n_charges = length(charge_space);
         end
         fprintf("\n")
-        disp(['The Charge space currently has ', num2str(n_charges), ' charges. Exit menu to interact with Charge space plot.']);
+        disp(['The Charge space currently has ', num2str(n_charges), ' charges. Exit menu to interact with Charge space plot or do calculations.']);
         disp("Enter 1 to place a specific new charge into Charge Space: ");
         disp("Enter 2 to remove specific charge from Charge Space or 6 to remove all charges: ");
         disp("Enter 3 to generate N random charges in Charge Space: ");
@@ -209,10 +209,10 @@ function calculator()
                         [fx, fy, fz] = net_force_on(find_charge_bycoord(x, y, z));
                         loco = ['charge at (', num2str(x), ', ', num2str(y), ', ', num2str(y), ')'];
                     end
-					% OUTPUT STATEMENT
-                    fprintf('\nThe net force on %s is:\n\t%e N along X-axis\n\t%e N along Y-axis\n\t%e N along Z-axis\n', loco, fx, fy, fz);
-                    input('Press ENTER to continue!')
                 end
+                % OUTPUT STATEMENT
+                fprintf('\nThe net force on %s is:\n\t%e N along X-axis\n\t%e N along Y-axis\n\t%e N along Z-axis\n', loco, fx, fy, fz);
+                input('Press ENTER to continue!')
 
             case 3
                 disp('Enter the x, y, z coordinates and the magnitude of the first charge: ');
@@ -447,7 +447,7 @@ function [force_x, force_y, force_z] = net_force_on(obj)
                 return
             end
         elseif this_charge.x_coord == 'N'
-            disp('Charge Space is empty! Returning zero Force');
+            disp('Charge Space is empty! Returning zero Force.');
             force_x = 0;
             force_y = 0;
             force_z = 0;
@@ -506,7 +506,7 @@ function [force_x, force_y, force_z] = force_on_two(obj, obj2)
     else
         this_charge = obj;
 		% Check Existence
-		if isnumeric(this_charge)
+        if isnumeric(this_charge)
             if this_charge == 0
                 force_x = 0;
                 force_y = 0;
@@ -525,7 +525,7 @@ function [force_x, force_y, force_z] = force_on_two(obj, obj2)
     if isnumeric(obj2)
         this_charge2 = find_charge(obj2);
 		% Check Existence
-		if isnumeric(this_charge2)
+        if isnumeric(this_charge2)
             if this_charge == 0
                 force_x = 0;
                 force_y = 0;
@@ -754,6 +754,7 @@ function info_text()
         n_charges = 0;
     else
         n_charges = length(charge_space);
+        fprintf('Radius of charges in Charge Space Scatter plot is not to scale. They only represent relative magnitudes.\n\n');
     end
     disp(['The Charge Space currently has ', num2str(n_charges), ' charges. The permittivity of the medium is ', num2str(charge_space_permittivity), '.']);
     fprintf("Call menu() function to add and remove charges in Charge Space or plot Charge Space in three dimensions.");
