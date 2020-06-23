@@ -5,14 +5,15 @@ This is a MATLAB program to simulate Electrostatic phenomenon, particularly Coul
 
 ----
 # Simulation Properties:
-1. Let `charge_space` be a Structure Array  with `x_coord`, `y_coord`, `z_coord` coordinates and `mag` magnitude as properties of the Structure, representing the simulated medium obeying the necessary assumptions of Coulomb’s Law.
+1. Let `charge_space` be a Structure Array with `x_coord`, `y_coord`, `z_coord` coordinates and `mag` magnitude as properties of the Structure, representing the simulated medium obeying the necessary assumptions of Coulomb’s Law.
 2. Then, `length(charged_space)` gives the number of Charged particles in charge_space.
 3. Let `charge_space_permittivity` represents the permittivity of the medium.
+4. The `charge_space` is visualized as a 3 Dimensional Scatter plot for the Simulation.
 ----
 
-# Functions and Usage:
+# Main script CoulombsLaw.m Functions and Usage:
 
-USAGE: Client Functions that wrap the Back-end Functions
+Client Functions that wrap the Back-end Functions (for usage):
 --
 A. The `plot_space()` client function **plots the entirety of the charge_space and all the charges present in it in 3 Dimensional Space as a Scatter plot**. 
 
@@ -50,6 +51,16 @@ Back-end Functions:
 1. `charge_pair_force()`: Calculates the three Dimensional components of force on charge parameter `obj` by charge parameter `obj2`.
 2. `charge_net_force()`: Superposition Theorem: Calculates the three dimensional components of the net force on charge parameter `obj` by all other Charges.
 3. `net_field_at()`: Superposition Theorem: Calculates the three dimensional components of the net Electric Field strength at coordinate parameters `x, y, z` in Charge Space.
+
+----
+
+# Repository Folder Contents:
+**1. CoulombsLaw.m:** The main MATLAB script containing all the utility and backend functions to make the Simulation work. Functions are explained above in detail.\
+**2. EMFT_Project.prj:** Contains the project structure information. Can be ignored entirely during application.\
+**3. examples folder:** Contains example images of the things the script can accomplish.\
+**4. resources folder:** Contains the Project resources. Do not modify without expertise.\
+**5. README.md:** This Github Repository information file.\
+**6. LICENSE:** BSD 3 License information that governs the Software. Do not modify.
 
 ----
 
