@@ -463,6 +463,9 @@ function [force_x, force_y, force_z] = net_force_on(obj)
         end
         if flag == 0
            disp('Charge Not Found!');
+		   force_x = 0;
+           force_y = 0;
+           force_z = 0;
            return
         end
     end
@@ -476,13 +479,13 @@ function [force_x, force_y, force_z] = net_force_on(obj)
         end
         charge_mag = charge.mag;
         charge_dist = dist_get(charge.x_coord, this_charge.x_coord, charge.y_coord, this_charge.y_coord, charge.z_coord, this_charge.z_coord);
-        charge_dist = charge_dist ^ 3;
+        charge_dist = charge_dist ^ 3; % For vector components
         vect_forces(:, c) = [
             this_charge.x_coord - charge.x_coord;
             this_charge.y_coord - charge.y_coord;
             this_charge.z_coord - charge.z_coord
         ];
-        vect_forces(:, c) =  charge_mag / charge_dist * vect_forces(:, c);
+        vect_forces(:, c) =  (charge_mag / charge_dist) * vect_forces(:, c);
     end
     comp_x = sum(vect_forces(1, :));
     comp_y = sum(vect_forces(2, :));
@@ -502,10 +505,40 @@ function [force_x, force_y, force_z] = force_on_two(obj, obj2)
         this_charge = find_charge(obj);
     else
         this_charge = obj;
+		% Check Existence
+		if isnumeric(this_charge)
+            if this_charge == 0
+                force_x = 0;
+                force_y = 0;
+                force_z = 0;
+                return
+            end
+        elseif this_charge.x_coord == 'N'
+            disp('Charge Space is empty! Returning zero Force');
+            force_x = 0;
+            force_y = 0;
+            force_z = 0;
+            return
+        end
     end
     
     if isnumeric(obj2)
         this_charge2 = find_charge(obj2);
+		% Check Existence
+		if isnumeric(this_charge2)
+            if this_charge == 0
+                force_x = 0;
+                force_y = 0;
+                force_z = 0;
+                return
+            end
+        elseif this_charge2.x_coord == 'N'
+            disp('Charge Space is empty! Returning zero Force');
+            force_x = 0;
+            force_y = 0;
+            force_z = 0;
+            return
+        end
     else
         this_charge2 = obj2;
     end
