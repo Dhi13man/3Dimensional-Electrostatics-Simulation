@@ -4,11 +4,19 @@ This is a MATLAB program to simulate Electrostatic phenomenon, particularly Coul
 ![](https://raw.githubusercontent.com/Dhi13man/3Dimensional-Electrostatics-Simulation/master/examples/100_charge_space.png)
 
 ----
-# Simulation Properties:
+Simulation Properties:
+--
 1. Let `charge_space` be a Structure Array with `x_coord`, `y_coord`, `z_coord` coordinates and `mag` magnitude as properties of the Structure, representing the simulated medium obeying the necessary assumptions of Coulomb’s Law.
 2. Then, `length(charged_space)` gives the number of Charged particles in charge_space.
 3. Let `charge_space_permittivity` represents the permittivity of the medium.
 4. The `charge_space` is visualized as a 3 Dimensional Scatter plot for the Simulation.
+----
+
+# Prerequisites and Instructions:
+1. Requires MATLAB for execution of CoulombsLaw.m script.
+2. Run CoulombsLaw.m in MATLAB and call any of the Client functions menu(), calc(), plot_graphs(), plot_space() to use them as required.
+3. Further instructions and detailed information about the functions are mentioned below.
+
 ----
 
 # Main script CoulombsLaw.m Functions and Usage:
@@ -56,11 +64,12 @@ Back-end Functions:
 
 # Repository Folder Contents:
 **1. CoulombsLaw.m:** The main MATLAB script containing all the utility and backend functions to make the Simulation work. Functions are explained above in detail.\
-**2. EMFT_Project.prj:** Contains the project structure information. Can be ignored entirely during application.\
-**3. examples folder:** Contains example images of the things the script can accomplish.\
-**4. resources folder:** Contains the Project resources. Do not modify without expertise.\
-**5. README.md:** This Github Repository information file.\
-**6. LICENSE:** BSD 3 License information that governs the Software. Do not modify.
+**2. CoulombsLaw.pptx** Presentation prepared for the purpose of this project. Theoretical concepts explained from Ground Zero.
+**3. EMFT_Project.prj:** Contains the project structure information. Can be ignored entirely during application.\
+**4. examples folder:** Contains example images of the things the script can accomplish.\
+**5. resources folder:** Contains the Project resources. Do not modify without expertise.\
+**6. README.md:** This Github Repository information file.\
+**7. LICENSE:** BSD 3 License information that governs the Software. Do not modify.
 
 ----
 
