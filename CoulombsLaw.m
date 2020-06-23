@@ -66,6 +66,10 @@ function help()
         disp("Enter 4 to display properties of a specific charge in Charge Space: ");
         disp("Enter 5 to exit Menu and interact with the 3 Dimensional plot of current Charge Space: ");
         choice = input("==> ");
+        if isempty(choice) || ~isnumeric(choice)  % Redo if bad input
+            choice = 0;
+            continue
+        end
         clc;
         switch choice
             case 1
@@ -155,11 +159,15 @@ function calculator()
         disp(['The Charge space currently has ', num2str(n_charges), ' charges. The permittivity of the medium is ', num2str(charge_space_permittivity), '.']);
         disp("Enter 1 to change permittivity of Charge Space Medium: ");
         disp("Enter 2 to calculate superpositioned Net Force on any charge already present in Charge Space: ");
-        disp("Enter 3 to calculate force for two custom charges, based on parameters entered for two charges: ");
-        disp("Enter 4 to calculate force between any two charges already present in charge space: ");
+        disp("Enter 3 to calculate force between any two charges already present in charge space: ");
+        disp("Enter 4 to calculate force for two custom temporary charges, based on parameters entered for two charges: ");
         disp("Enter 5 to calculate superpositioned Electric field at any point in the Charge Space: ");
         disp("Enter 6 to exit menu: ");
         choice = input("==> ");
+        if isempty(choice) || ~isnumeric(choice)  % Redo if bad input
+            choice = 0;
+            continue
+        end
         clc;
         switch choice
             case 1
@@ -215,28 +223,6 @@ function calculator()
                 input('Press ENTER to continue!')
 
             case 3
-                disp('Enter the x, y, z coordinates and the magnitude of the first temporary charge to analyze: ');
-                x = input("X coordinate: ");
-                y = input("Y coordinate: ");
-                z = input("Z coordinate: ");
-                mag = input("Magnitude: ");
-                loco1 = ['(', num2str(x), ', ', num2str(y), ', ', num2str(z), ')'];
-                cA = charge_create(x, y, z, mag, -1);
-                fprintf('\n');
-                disp('Enter the x, y, z coordinates and the magnitude of the second temporary charge to analyze: ');
-                x = input("X coordinate: ");
-                y = input("Y coordinate: ");
-                z = input("Z coordinate: ");
-                mag = input("Magnitude: ");
-                loco2 = ['(', num2str(x), ', ', num2str(y), ', ', num2str(z), ')'];
-                cB = charge_create(x, y, z, mag, -1);
-                fprintf('\n');                   
-                [fx, fy, fz] = force_on_two(cA, cB);
-				% OUTPUT STATEMENT
-                fprintf('\nThe force on charge at %s by charge at %s is:\n\t%e N along X-axis\n\t%e N along Y-axis\n\t%e N along Z-axis\n', loco1, loco2, fx, fy, fz);
-                input('Press ENTER to continue!')
-
-            case 4
                 if charge_space(1).x_coord == 'N'
                         disp('Charge Space is empty! Returning zero Force');
                         fx = 0;
@@ -318,8 +304,29 @@ function calculator()
                     end
                     input('Press ENTER to continue!')
                 end
-                
-                
+                  
+            case 4
+                disp('Enter the x, y, z coordinates and the magnitude of the first temporary charge to analyze: ');
+                x = input("X coordinate: ");
+                y = input("Y coordinate: ");
+                z = input("Z coordinate: ");
+                mag = input("Magnitude: ");
+                loco1 = ['(', num2str(x), ', ', num2str(y), ', ', num2str(z), ')'];
+                cA = charge_create(x, y, z, mag, -1);
+                fprintf('\n');
+                disp('Enter the x, y, z coordinates and the magnitude of the second temporary charge to analyze: ');
+                x = input("X coordinate: ");
+                y = input("Y coordinate: ");
+                z = input("Z coordinate: ");
+                mag = input("Magnitude: ");
+                loco2 = ['(', num2str(x), ', ', num2str(y), ', ', num2str(z), ')'];
+                cB = charge_create(x, y, z, mag, -1);
+                fprintf('\n');                   
+                [fx, fy, fz] = force_on_two(cA, cB);
+				% OUTPUT STATEMENT
+                fprintf('\nThe force on charge at %s by charge at %s is:\n\t%e N along X-axis\n\t%e N along Y-axis\n\t%e N along Z-axis\n', loco1, loco2, fx, fy, fz);
+                input('Press ENTER to continue!')
+
             case 5
                 disp("Enter the x, y, z coordinates of the point where you want to find net Electric Field Strength:"); 
                 x = input("X coordinate: ");

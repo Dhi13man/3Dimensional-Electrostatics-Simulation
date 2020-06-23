@@ -35,8 +35,8 @@ B. The `menu()` client function creates the **"Charge Space Menu"** and can be c
 C. The `calc()` client function creates the **"Calculate Values with Coulomb's Law Menu"** and can be called to
 1. **Change permittivity**, i.e `charge_space_permittivity` of `charge_space`.
 2. **Calculate net force on any charge** in `charge_space`.
-3. **Calculate force between any two temporary charges** defined by parameters.
-4 **Calculate force between any two charges** in `charge_space`.
+3 **Calculate force between any two charges** in `charge_space`.
+4. **Calculate force between any two temporary charges** defined by parameters.
 5. **Calculate net Electric Field strength** in any point in `charge_space`.
 6. **Exit** out of **Calculate Values with Coulomb's Law Menu**.
 
