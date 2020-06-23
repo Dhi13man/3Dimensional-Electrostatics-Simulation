@@ -119,7 +119,7 @@ function help()
                         z = input("Z coordinate: ");
                         display_charge_properties(find_charge(find_charge_bycoord(x, y, z)));
                     end
-                    fprintf('\n\');
+                    fprintf('\n');
                     input('Press ENTER to continue!');
                 end
 
@@ -207,7 +207,7 @@ function calculator()
                         y = input("Y coordinate: ");
                         z = input("Z coordinate: ");
                         [fx, fy, fz] = net_force_on(find_charge_bycoord(x, y, z));
-                        loco = ['charge at (', num2str(x), ', ', num2str(y), ', ', num2str(y), ')'];
+                        loco = ['charge at (', num2str(x), ', ', num2str(y), ', ', num2str(z), ')'];
                     end
                 end
                 % OUTPUT STATEMENT
@@ -215,21 +215,21 @@ function calculator()
                 input('Press ENTER to continue!')
 
             case 3
-                disp('Enter the x, y, z coordinates and the magnitude of the first charge: ');
+                disp('Enter the x, y, z coordinates and the magnitude of the first temporary charge to analyze: ');
                 x = input("X coordinate: ");
                 y = input("Y coordinate: ");
                 z = input("Z coordinate: ");
                 mag = input("Magnitude: ");
-                loco1 = ['(', num2str(x), ', ', num2str(y), ', ', num2str(y), ')'];
-                cA = charge_create(x, y, z, mag, 0);
+                loco1 = ['(', num2str(x), ', ', num2str(y), ', ', num2str(z), ')'];
+                cA = charge_create(x, y, z, mag, -1);
                 fprintf('\n');
-                disp('Enter the x, y, z coordinates and the magnitude of the second charge: ');
+                disp('Enter the x, y, z coordinates and the magnitude of the second temporary charge to analyze: ');
                 x = input("X coordinate: ");
                 y = input("Y coordinate: ");
                 z = input("Z coordinate: ");
                 mag = input("Magnitude: ");
-                loco2 = ['(', num2str(x), ', ', num2str(y), ', ', num2str(y), ')'];
-                cB = charge_create(x, y, z, mag, 0);
+                loco2 = ['(', num2str(x), ', ', num2str(y), ', ', num2str(z), ')'];
+                cB = charge_create(x, y, z, mag, -1);
                 fprintf('\n');                   
                 [fx, fy, fz] = force_on_two(cA, cB);
 				% OUTPUT STATEMENT
@@ -326,7 +326,7 @@ function calculator()
                 y = input("Y coordinate: ");
                 z = input("Z coordinate: ");
                 [fx, fy, fz] = net_field_on(x, y, z);
-                loco = ['(', num2str(x), ', ', num2str(y), ', ', num2str(y), ')'];
+                loco = ['(', num2str(x), ', ', num2str(y), ', ', num2str(z), ')'];
                 if (charge_space(1).x_coord == 'N')
                     n_charges = 0;
                 else
@@ -642,15 +642,20 @@ function charge_dest(obj, show)
             input("");
             return
         end
-        charge_space(obj) = [];
+        if length(charge_space) == 1
+            charge_space(1).x_coord = 'N';
+        else
+            charge_space(obj) = [];
+        end
     else
         for charge = 1 : length(charge_space)
             if isequal(obj, charge_space(charge))
                 flag = 1;
                 if length(charge_space) == 1
-                    charge_space(charge).x_coord = 'N';
+                    charge_space(1).x_coord = 'N';
+                else
+                    charge_space(charge) = [];
                 end
-                charge_space(charge) = [];
                 break
             end
         end
@@ -669,32 +674,8 @@ function charge_out = charge_create(x_coordinate, y_coordinate, z_coordinate, ma
     if nargin == 4
         show = 1;
     end
-    if magnitude == 0
-        disp('Zero Magnitude Charge created! It has no effect on Charge Space and will be ignored.');
-        charge_out.x_coord = x_coordinate;
-        charge_out.y_coord = y_coordinate;  
-        charge_out.z_coord = z_coordinate;
-        charge_out.mag = magnitude;
-        return
-    end
-    for charge = 1 : length(charge_space)
-        if x_coordinate == charge_space(charge).x_coord && y_coordinate == charge_space(charge).y_coord && z_coordinate == charge_space(charge).z_coord
-            charge_space(charge).mag = magnitude;
-            if magnitude > 0
-                charge_space(charge).col = 'r';
-            elseif magnitude == 0
-                charge_space(charge).col = 'g';
-            else
-                charge_space(charge).col = 'b';
-            end
-            charge_out = charge_space(charge);
-            disp('Charge Already exists here in charge space. Magnitude updated.');
-            if show == 1
-                plot_ch()
-            end
-            return;
-        end
-    end
+    % Check if proper input supplied. Also, show == -1 implies temporary charge
+    is_improper_charge = isempty(x_coordinate) || isempty(y_coordinate) || isempty(z_coordinate) || isempty(magnitude);
     charge_out.x_coord = x_coordinate;
     charge_out.y_coord = y_coordinate;  
     charge_out.z_coord = z_coordinate;
@@ -704,10 +685,36 @@ function charge_out = charge_create(x_coordinate, y_coordinate, z_coordinate, ma
     else
         charge_out.col = 'b';
     end
-    if charge_space(end).x_coord == 'N'
-        charge_space(end) = charge_out;
-    else
-        charge_space(end + 1) = charge_out;
+    if magnitude == 0
+        disp('Zero Magnitude Charge created! It has no effect on Charge Space and will be ignored.');
+        return
+    end
+    if ~is_improper_charge && show ~= -1
+        for charge = 1 : length(charge_space)
+            if x_coordinate == charge_space(charge).x_coord && y_coordinate == charge_space(charge).y_coord && z_coordinate == charge_space(charge).z_coord
+                charge_space(charge).mag = magnitude;
+                if magnitude > 0
+                    charge_space(charge).col = 'r';
+                elseif magnitude == 0
+                    charge_space(charge).col = 'g';
+                else
+                    charge_space(charge).col = 'b';
+                end
+                charge_out = charge_space(charge);
+                disp('Charge Already exists here in charge space. Magnitude updated.');
+                if show == 1
+                    plot_ch()
+                end
+                return;
+            end
+        end
+    end
+    if show ~= -1 && ~is_improper_charge
+        if charge_space(end).x_coord == 'N'
+            charge_space(end) = charge_out;
+        else
+            charge_space(end + 1) = charge_out;
+        end
     end
     if show == 1
         plot_ch()
