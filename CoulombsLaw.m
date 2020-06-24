@@ -49,7 +49,7 @@ info_text();
 function help()
     global charge_space; choice = 0;
     while choice ~= 5
-        clc;
+        fprintf('\n\n');
 		
 		% Charge Space Menu is displayed until '5' is entered as Choice.
         fprintf("\t\t\t\t\t\t\t\t\t\tCHARGE SPACE MENU");
@@ -146,7 +146,7 @@ end
 function calculator()
     global charge_space; global charge_space_permittivity; choice = 0;
     while choice ~= 6
-        clc;
+        fprintf('\n\n');
 		
 		% Calculate Values with Coulomb's Law Menu is displayed until '6' is entered as Choice.
         fprintf("\t\t\t\t\t\t\t\t\tCALCULATE VALUES WITH COULOMB's LAW");
