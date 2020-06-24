@@ -70,7 +70,7 @@ function help()
             choice = 0;
             continue
         end
-        clc;
+        fprintf('\n\n');
         switch choice
             case 1
                 disp("Enter the x, y, z coordinates of the charge and it's magnitude: ");
@@ -168,7 +168,7 @@ function calculator()
             choice = 0;
             continue
         end
-        clc;
+        fprintf('\n\n');
         switch choice
             case 1
                 ch = 0;
