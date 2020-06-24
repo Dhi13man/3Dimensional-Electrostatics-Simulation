@@ -14,7 +14,7 @@ Simulation Properties:
 
 # Prerequisites and Instructions:
 1. Requires MATLAB for execution of CoulombsLaw.m script.
-2. Run CoulombsLaw.m in MATLAB and call any of the Client functions menu(), calc(), plot_graphs(), plot_space() to use them as required.
+2. Run CoulombsLaw.m in MATLAB and call any of the Client functions `menu()`, `calc()`, `plot_graphs()`, `plot_space()` to use them as required.
 3. Further instructions and detailed information about the functions are mentioned below.
 
 ----
