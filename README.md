@@ -12,14 +12,14 @@ Simulation Properties:
 4. The `charge_space` is visualized as a 3 Dimensional Scatter plot for the Simulation.
 ----
 
-# Prerequisites and Instructions:
+## Prerequisites and Instructions:
 1. Requires MATLAB for execution of CoulombsLaw.m script.
 2. Run CoulombsLaw.m in MATLAB and call any of the Client functions `menu()`, `calc()`, `plot_graphs()`, `plot_space()` to use them as required.
 3. Further instructions and detailed information about the functions are mentioned below.
 
 ----
 
-# Main script CoulombsLaw.m Functions and Usage:
+## Main script CoulombsLaw.m Functions and Usage:
 
 Client Functions that wrap the Back-end Functions (for usage):
 --
@@ -62,7 +62,7 @@ Back-end Functions:
 
 ----
 
-# Repository Folder Contents:
+## Repository Folder Contents:
 **1. CoulombsLaw.m:** The main MATLAB script containing all the utility and backend functions to make the Simulation work. Functions are explained above in detail.\
 **2. CoulombsLaw.pptx** Presentation prepared for the purpose of this project. Theoretical concepts explained from Ground Zero.
 **3. EMFT_Project.prj:** Contains the project structure information. Can be ignored entirely during application.\
@@ -90,3 +90,11 @@ Examples:
 **Fig:** Net Force calculated on Charge 3 (5, 12, -7) by the other two Charges, and verified to be correct.
 
 ----
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+See [LICENSE](LICENSE).
